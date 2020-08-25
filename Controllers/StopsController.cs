@@ -17,21 +17,21 @@ namespace MetroAPI.Controllers
         }
 
         [HttpGet("journey/{journeyId}")]
-        ActionResult<IEnumerable<Stop>> GetStopsAlongJourney(int journeyId)
+        public ActionResult<IEnumerable<Stop>> GetStopsAlongJourney(int journeyId)
         {
             var stops = _repository.GetStopsAlongJourney(journeyId);
             return Ok(stops);
         }
 
         [HttpGet("{id}")]
-        ActionResult<Stop> GetStopFromId(int id)
+        public ActionResult<Stop> GetStopFromId(int id)
         {
             var stop = _repository.GetStopFromId(id);
             return Ok(stop);
         }
 
         [HttpGet("time/{time}")]
-        ActionResult<IEnumerable<Stop>> GetStopsAtTime(string time)
+        public ActionResult<IEnumerable<Stop>> GetStopsAtTime(string time)
         {
             var stops = _repository.GetStopsFromTime(time);
             return Ok(stops);

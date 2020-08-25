@@ -17,21 +17,21 @@ namespace MetroAPI.Controllers
         }
 
         [HttpGet]
-        ActionResult<IEnumerable<Route>> GetAllRoutes()
+        public ActionResult<IEnumerable<Route>> GetAllRoutes()
         {
             var routes = _repository.GetAllRoutes();
             return Ok(routes);
         }
 
         [HttpGet("{id}")]
-        ActionResult<Route> GetRouteById(int id)
+        public ActionResult<Route> GetRouteById(int id)
         {
             var route = _repository.GetRouteById(id);
             return Ok(route);
         }
 
         [HttpGet("routeNumber/{routeNumber}")]
-        ActionResult<IEnumerable<Route>> GetRoutesFromRouteNumber(string routeNumber)
+        public ActionResult<IEnumerable<Route>> GetRoutesFromRouteNumber(string routeNumber)
         {
             var routes = _repository.GetRoutesFromRouteNumber(routeNumber);
             return Ok(routes);
