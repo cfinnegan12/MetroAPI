@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MetroAPI.Migrations
 {
     [DbContext(typeof(MetroDBContext))]
-    [Migration("20200824191204_InitialCreate")]
+    [Migration("20200825174254_Initial-Create")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace MetroAPI.Models
 {
@@ -16,6 +14,7 @@ namespace MetroAPI.Models
         [Column(TypeName ="time(0)")]
         public TimeSpan Time { get; set; }
         
+        [Required]
         //O = Origin, I = Intermediate, D = Destination
         public char StopType { get; set; }
     }
