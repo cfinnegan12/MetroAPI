@@ -28,7 +28,7 @@ namespace MetroAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<IMetroRepo, TestRepo>();
+            services.AddScoped<IMetroRepo, MetroRepository>();
             services.AddDbContext<MetroDBContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("MetroDB")));
         }
 

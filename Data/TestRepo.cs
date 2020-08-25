@@ -41,10 +41,6 @@ namespace MetroAPI.Data
             throw new NotImplementedException();
         }
 
-        public Location GetLocationFromFullForm(string fullForm)
-        {
-            throw new NotImplementedException();
-        }
 
         public Location GetLocationFromId(int id)
         {
@@ -84,6 +80,11 @@ namespace MetroAPI.Data
         }
 
         public IEnumerable<Stop> GetStopsAlongJourney(int journeyId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Location> GetLocationsFromFullForm(string fullForm)
         {
             throw new NotImplementedException();
         }

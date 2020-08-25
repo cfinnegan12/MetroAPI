@@ -30,7 +30,7 @@ namespace MetroAPI.Data
         IEnumerable<Location> GetAllLocations();
         Location GetLocationFromId(int id);
         Location GetLocationFromShortForm(string shortForm);
-        Location GetLocationFromFullForm(string fullForm);
+        IEnumerable<Location> GetLocationsFromFullForm(string fullForm);
 
 
         /*

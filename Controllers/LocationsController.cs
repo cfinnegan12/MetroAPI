@@ -38,9 +38,9 @@ namespace MetroAPI.Controllers
         }
 
         [HttpGet("fullForm/{fullForm}")]
-        public ActionResult<Location> GetLocationFromFullForm(string fullForm)
+        public ActionResult<IEnumerable<Location>> GetLocationsFromFullForm(string fullForm)
         {
-            var location = _repository.GetLocationFromShortForm(fullForm);
+            var location = _repository.GetLocationsFromFullForm(fullForm);
             return Ok(location);
         }
     }
