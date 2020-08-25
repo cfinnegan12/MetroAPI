@@ -14,7 +14,8 @@ namespace MetroAPI.Data
             context.Database.EnsureCreated();
 
             if (!context.Locations.Any()) SeedLocations(context);
-            
+            if (!context.Routes.Any()) SeedRoutes(context);
+
         }
 
         private static bool SeedLocations(MetroDBContext context)
@@ -22,9 +23,11 @@ namespace MetroAPI.Data
             int i = 0;
             try
             {
-                Console.WriteLine("Seeding locations: " + i + "/" + _parser.Locations.Count);
+
                 foreach (LocationRecord location in _parser.Locations.Values)
                 {
+                    Console.WriteLine("Seeding locations: " + i + "/" + _parser.Locations.Count);
+
                     context.Locations.Add(new Location
                     {
                         ShortForm = location.Location,
@@ -43,6 +46,35 @@ namespace MetroAPI.Data
             } 
 
             Console.WriteLine("Locations successfully seeded");
+            return true;
+        }
+
+        private static bool SeedRoutes(MetroDBContext context)
+        {
+            int i = 0;
+            try
+            {
+                foreach (RouteDescription route in _parser.Routes.Values)
+                {
+                    Console.WriteLine("Seeding routes: " + i + "/" + _parser.Routes.Count);
+
+                    context.Routes.Add(new Route { 
+                        RouteNumber = route.Route,
+                        Description = route.Description,
+                        Direction = (route.Direction == Direction.Inbound) ? "Inbound" : "Outbound"
+                    });
+                    i++;
+                }
+                context.SaveChanges();
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Routes seeding failed: \n" + e.Message);
+                return false;
+            }
+
+            Console.WriteLine("Routes successfully seeded");
             return true;
         }
     }
