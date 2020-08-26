@@ -40,19 +40,23 @@ namespace MetroAPI.Data
          */
         public Stop GetStopFromId(int id)
         {
-            return _context.Stops.Where(s => s.Id == id).SingleOrDefault();
+            return _context.Stops.Where(s => s.Id == id).Include(s => s.Location).SingleOrDefault();
         }
 
         public IEnumerable<Stop> GetStopsAlongJourney(int journeyId)
         {
-            return _context.Journeys.Where(j => j.Id == journeyId).SingleOrDefault().Stops;
+            return _context.Journeys.Where(j=>j.Id == journeyId)
+                .Include(j=>j.Stops)
+                    .ThenInclude(s => s.Location)
+                .SingleOrDefault().Stops;
         }
 
         public IEnumerable<Stop> GetStopsFromTime(string time)
         {
             int hours = Int16.Parse(time.Substring(0, 2));
             int mins = Int16.Parse(time.Substring(2, 2));
-            return _context.Stops.Where(s => s.Time.Hours == hours && s.Time.Minutes == mins);
+            TimeSpan timeSpan = new TimeSpan(0, hours, mins, 0);
+            return _context.Stops.Where(s => s.Time == timeSpan).Include(s => s.Location);
         }
 
         /*
