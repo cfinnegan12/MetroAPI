@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using AutoMapper;
 using MetroAPI.Data;
-using MetroAPI.DTOs;
 using MetroAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,12 +11,10 @@ namespace MetroAPI.Controllers
     {
 
         private readonly IMetroRepo _repository;
-        private readonly IMapper _mapper;
 
-        public JourneysController(IMetroRepo repository, IMapper mapper)
+        public JourneysController(IMetroRepo repository)
         {
             _repository = repository;
-            _mapper = mapper;
         }
 
         [HttpGet]
@@ -29,12 +25,10 @@ namespace MetroAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<JourneyReadDto> GetJourneyById(int id)
+        public ActionResult<Journey> GetJourneyById(int id)
         {
             var journey = _repository.GetJourneyById(id);
-            var response = _mapper.Map<JourneyReadDto>(journey);
-            response.OperationDays = _mapper.Map<OperationDaysDto>(journey);
-            return Ok(response);
+            return Ok(journey);
         }
 
         [HttpGet("route/{routeId}")]

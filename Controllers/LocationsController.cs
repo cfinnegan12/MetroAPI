@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using AutoMapper;
 using MetroAPI.Data;
-using MetroAPI.DTOs;
 using MetroAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,12 +10,10 @@ namespace MetroAPI.Controllers
     public class LocationsController : ControllerBase
     {
         private readonly IMetroRepo _repository;
-        private readonly IMapper _mapper;
 
-        public LocationsController(IMetroRepo repository, IMapper mapper)
+        public LocationsController(IMetroRepo repository)
         {
             _repository = repository;
-            _mapper = mapper;
         }
 
         [HttpGet]
@@ -28,10 +24,10 @@ namespace MetroAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<LocationReadDto> GetLocationFromId(int id)
+        public ActionResult<Location> GetLocationFromId(int id)
         {
             var location = _repository.GetLocationFromId(id);
-            return Ok(_mapper.Map<LocationReadDto>(location));
+            return Ok(location);
         }
 
         [HttpGet("shortForm/{shortForm}")]
