@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using MetroAPI.Data;
 using MetroAPI.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -20,21 +21,24 @@ namespace MetroAPI.Controllers
         public ActionResult<IEnumerable<Stop>> GetStopsAlongJourney(int journeyId)
         {
             var stops = _repository.GetStopsAlongJourney(journeyId);
-            return Ok(stops);
+            if (stops.Count() == 0 || stops == null) return NotFound();
+            else return Ok(stops);
         }
 
         [HttpGet("{id}")]
         public ActionResult<Stop> GetStopFromId(int id)
         {
             var stop = _repository.GetStopFromId(id);
-            return Ok(stop);
+            if (stop == null) return NotFound();
+            else return Ok(stop);
         }
 
         [HttpGet("time/{time}")]
         public ActionResult<IEnumerable<Stop>> GetStopsAtTime(string time)
         {
             var stops = _repository.GetStopsFromTime(time);
-            return Ok(stops);
+            if (stops.Count() == 0 || stops == null) return NotFound();
+            else return Ok(stops);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using MetroAPI.Data;
 using MetroAPI.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -28,14 +29,16 @@ namespace MetroAPI.Controllers
         public ActionResult<Journey> GetJourneyById(int id)
         {
             var journey = _repository.GetJourneyById(id);
-            return Ok(journey);
+            if (journey == null) return NotFound();
+            else return Ok(journey);
         }
 
         [HttpGet("route/{routeId}")]
         public ActionResult<IEnumerable<Journey>> GetJourneysByRoute(int routeId)
         {
             var journeys = _repository.GetJourneysByRoute(routeId);
-            return Ok(journeys);
+            if (journeys.Count() == 0 || journeys == null) return NotFound();
+            else return Ok(journeys);
         }
 
     }

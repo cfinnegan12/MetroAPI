@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using MetroAPI.Data;
 using MetroAPI.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -27,21 +28,24 @@ namespace MetroAPI.Controllers
         public ActionResult<Location> GetLocationFromId(int id)
         {
             var location = _repository.GetLocationFromId(id);
-            return Ok(location);
+            if (location == null) return NotFound();
+            else return Ok(location);
         }
 
         [HttpGet("shortForm/{shortForm}")]
         public ActionResult<Location> GetLocationFromShortForm(string shortForm)
         {
             var location = _repository.GetLocationFromShortForm(shortForm);
-            return Ok(location);
+            if (location == null) return NotFound();
+            else return Ok(location);
         }
 
         [HttpGet("fullForm/{fullForm}")]
         public ActionResult<IEnumerable<Location>> GetLocationsFromFullForm(string fullForm)
         {
-            var location = _repository.GetLocationsFromFullForm(fullForm);
-            return Ok(location);
+            var locations = _repository.GetLocationsFromFullForm(fullForm);
+            if (locations.Count() == 0 || locations == null) return NotFound();
+            else return Ok(locations);
         }
     }
 }
