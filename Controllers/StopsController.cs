@@ -19,7 +19,7 @@ namespace MetroAPI.Controllers
         }
 
         [HttpGet("journey/{journeyId}")]
-        public ActionResult<IEnumerable<Stop>> GetStopsAlongJourney(int journeyId)
+        public ActionResult<IEnumerable<StopReadDTO>> GetStopsAlongJourney(int journeyId)
         {
             var stops = _repository.GetStopsAlongJourney(journeyId);
             if (stops.Count() == 0 || stops == null) return NotFound();
@@ -35,7 +35,7 @@ namespace MetroAPI.Controllers
         }
 
         [HttpGet("time/{time}")]
-        public ActionResult<IEnumerable<Stop>> GetStopsAtTime(string time)
+        public ActionResult<IEnumerable<StopReadDTO>> GetStopsAtTime(string time)
         {
             var stops = _repository.GetStopsFromTime(time);
             if (stops.Count() == 0 || stops == null) return NotFound();
