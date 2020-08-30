@@ -48,7 +48,8 @@ namespace MetroAPI.Data
             return _context.Journeys.Where(j=>j.Id == journeyId)
                 .Include(j=>j.Stops)
                     .ThenInclude(s => s.Location)
-                .SingleOrDefault().Stops;
+                .SingleOrDefault().Stops
+                .OrderBy(s => s.Time);
         }
 
         public IEnumerable<Stop> GetStopsFromTime(string time)
