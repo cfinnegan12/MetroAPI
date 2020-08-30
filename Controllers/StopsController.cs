@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using MetroAPI.Data;
+using MetroAPI.DTOs;
 using MetroAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,15 +23,15 @@ namespace MetroAPI.Controllers
         {
             var stops = _repository.GetStopsAlongJourney(journeyId);
             if (stops.Count() == 0 || stops == null) return NotFound();
-            else return Ok(stops);
+            else return Ok(stops.Select( s => new StopReadDTO(s)));
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Stop> GetStopFromId(int id)
+        public ActionResult<StopReadDTO> GetStopFromId(int id)
         {
             var stop = _repository.GetStopFromId(id);
             if (stop == null) return NotFound();
-            else return Ok(stop);
+            else return Ok(new StopReadDTO(stop));
         }
 
         [HttpGet("time/{time}")]
@@ -38,7 +39,7 @@ namespace MetroAPI.Controllers
         {
             var stops = _repository.GetStopsFromTime(time);
             if (stops.Count() == 0 || stops == null) return NotFound();
-            else return Ok(stops);
+            else return Ok(stops.Select(s => new StopReadDTO(s)));
         }
     }
 }
