@@ -11,4 +11,5 @@ FROM mcr.microsoft.com/dotnet/core/aspnet
 WORKDIR /app
 EXPOSE 80
 COPY --from=build-env /app/out .
+COPY mtt_MET20200629v1.cif .
 ENTRYPOINT [ "dotnet", "MetroAPI.dll" ]

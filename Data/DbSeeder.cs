@@ -44,7 +44,7 @@ namespace MetroAPI.Data
 
             } catch(Exception e)
             {
-                Console.WriteLine("Locations seeding failed: \n" + e.Message);
+                Console.WriteLine("Locations seeding failed: \n" + e.InnerException.Message);
                 return false;
             } 
 
@@ -74,7 +74,7 @@ namespace MetroAPI.Data
             }
             catch (Exception e)
             {
-                Console.WriteLine("Routes seeding failed: \n" + e.Message);
+                Console.WriteLine("Routes seeding failed: \n" + e.InnerException.Message);
                 return false;
             }
 
@@ -115,7 +115,7 @@ namespace MetroAPI.Data
             }
             catch (Exception e)
             {
-                Console.WriteLine("Journey seeding failed: \n" + e.Message);
+                Console.WriteLine("Journey seeding failed: \n" + e.InnerException.Message);
                 return false;
             }
 

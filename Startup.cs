@@ -20,6 +20,12 @@ namespace MetroAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var server = Configuration["DBServer"] ?? "metrodb.database.windows.net";
+            var port = Configuration["DBPort"] ?? "1433";
+            var user = Configuration["DBUser"] ?? "MetroAPI";
+            var password = Configuration["DBPassword"];
+            var database = Configuration["DBName"] ?? "MetroDB";
+
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(
@@ -30,7 +36,7 @@ namespace MetroAPI
             });
             services.AddControllers();
             services.AddScoped<IMetroRepo, MetroRepository>();
-            services.AddDbContext<MetroDBContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("MetroDB")));
+            services.AddDbContext<MetroDBContext>(opt => opt.UseSqlServer($"Server={server},{port};Initial Catalog={database};User ID={user};Password={password}"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
