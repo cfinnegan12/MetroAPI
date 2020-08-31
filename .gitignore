@@ -10,6 +10,7 @@
 *.userosscache
 *.sln.docstates
 */appsettings.json
+.vscode
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -349,4 +350,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
-.vscode
+
+
+appsettings.json
