@@ -20,6 +20,14 @@ namespace MetroAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                    });
+            });
             services.AddControllers();
             services.AddScoped<IMetroRepo, MetroRepository>();
             services.AddDbContext<MetroDBContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("MetroDB")));
@@ -37,7 +45,10 @@ namespace MetroAPI
 
             app.UseRouting();
 
+            app.UseCors();
+
             app.UseAuthorization();
+ 
 
             DbSeeder.SeedDB(context);
 
